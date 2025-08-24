@@ -30,7 +30,7 @@ local idx = 0
 ---@param notify boolean?
 function M.next(deck, notify)
 	deck = deck or config.deck
-	notify = notify or config.notify
+	notify = (notify == nil and config.notify) or notify
 	-- get current colorscheme
 	local old_cs = vim.api.nvim_exec2("colorscheme", { output = true }).output
 	local new_cs = old_cs
