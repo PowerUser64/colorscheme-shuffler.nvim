@@ -5,8 +5,6 @@ Tests not passing? Feeling spontaneous? Mix up your editor theme with colorschem
 ```lua
 {
     'PowerUser64/colorscheme-shuffle.nvim'
-    lazy = false,
-    priority = 100, -- use high priority when using startup-related events in opts.shuffle_events
     opts = {},
 }
 ```
@@ -14,7 +12,7 @@ Tests not passing? Feeling spontaneous? Mix up your editor theme with colorschem
 ## Default config
 
 ```lua
-opts = {
+{
     deck = nil,          -- colorschemes to pick from (default: all)
     blacklist = {},      -- any colorschemes that shouldn't be picked (default: none)
     shuffle_events = {}, -- which vim events to shuffle on? (use UIEnter for startup)
@@ -27,7 +25,7 @@ opts = {
 A (non-default) example of how you could configure this plugin:
 
 ```lua
-opts = {
+{
     deck = nil, -- use all colorschemes
     blacklist = {
         -- blacklist all default light themes
@@ -38,8 +36,9 @@ opts = {
         "zellner",
     },
     shuffle_events = {
-        'UIEnter', -- shuffle on startup (make sure to not lazy load for this)
+        'FileWritePost', -- shuffle when writing files
         FileType = { 'javascript' }, -- shuffle when entering javascript files
+        'ON_LOAD', -- shuffle on plugin load (special non-vim event, make sure to not lazy load for this)
     },
     notify = true,
 }
@@ -48,8 +47,8 @@ opts = {
 ## API
 
 - `next()` - Call this function to change to the next random colorscheme. Pass a list of colorschemes to pick from a specific list.
-- `append_blacklist()` - Add a new colorscheme to the blacklist. Useful if you want to distribute your configuration across multiple files.
-- `append_deck()` - Add a new colorscheme to the list of all colorschemes, applying the blacklist filters.
+- `append_blacklist()` - Add a new colorscheme to the blacklist. Useful if you want to split up your config.
+- `append_deck()` - Add a new colorscheme to the list of all colorschemes, applying the blacklist filters. Useful if you want to split up your config.
 
 ## Acknowledgments
 
