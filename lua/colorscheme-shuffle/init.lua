@@ -27,10 +27,10 @@ local idx = 0
 
 --- Go to the next random colorscheme in the deck
 ---@param deck (string[]|nil)?
----@param silent boolean?
-function M.next(deck, silent)
+---@param notify boolean?
+function M.next(deck, notify)
 	deck = deck or config.deck
-	silent = silent or config.notify
+	notify = notify or config.notify
 	-- get current colorscheme
 	local old_cs = vim.api.nvim_exec2("colorscheme", { output = true }).output
 	local new_cs = old_cs
@@ -70,7 +70,7 @@ function M.next(deck, silent)
 	end
 	-- set the new colorscheme
 	vim.cmd.colorscheme(new_cs)
-	if not silent then
+	if notify then
 		vim.notify("colorscheme: " .. (new_cs or ""), vim.log.levels.INFO, {})
 	end
 end
@@ -94,7 +94,7 @@ function M.setup(user_config)
 			if type(key) == "number" then
 				if value == "ON_LOAD" then
 					-- Special event: load instantly
-					M.next(config.deck, true)
+					M.next(config.deck, false)
 				else
 					print("Event key: ", key)
 					vim.api.nvim_create_autocmd(value, {
