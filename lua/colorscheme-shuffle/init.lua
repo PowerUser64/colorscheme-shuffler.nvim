@@ -5,6 +5,7 @@ local config = {
 	deck = nil,
 	blacklist = {},
 	shuffle_events = {},
+	notify = true,
 }
 
 local lib = require("colorscheme-shuffle.lib")
@@ -25,9 +26,11 @@ end
 local idx = 0
 
 --- Go to the next random colorscheme in the deck
----@param deck string[]|nil
-function M.next(deck)
+---@param deck (string[]|nil)?
+---@param silent boolean?
+function M.next(deck, silent)
 	deck = deck or config.deck
+	silent = silent or config.notify
 	-- get current colorscheme
 	local old_cs = vim.api.nvim_exec2("colorscheme", { output = true }).output
 	local new_cs = old_cs
@@ -67,7 +70,9 @@ function M.next(deck)
 	end
 	-- set the new colorscheme
 	vim.cmd.colorscheme(new_cs)
-	vim.notify("colorscheme: " .. (new_cs or ""), vim.log.levels.INFO, {})
+	if not silent then
+		vim.notify("colorscheme: " .. (new_cs or ""), vim.log.levels.INFO, {})
+	end
 end
 
 --- Setup the plugin, optionally performing the shuffle_events option
@@ -77,6 +82,7 @@ function M.setup(user_config)
 
 	-- default to all colorschemes
 	config.deck = (config.deck or {}) == {} and {} or lib.get_available_colorschemes()
+	lib.shuffle_inplace(config.deck)
 	-- build the blacklist
 	config.blacklist = lib.list_values_to_keys(config.blacklist)
 	-- apply the blacklist
@@ -86,12 +92,18 @@ function M.setup(user_config)
 		local augroup = vim.api.nvim_create_augroup("colorscheme-shuffle.nvim", {})
 		for key, value in pairs(config.shuffle_events) do
 			if type(key) == "number" then
-				vim.api.nvim_create_autocmd(value, {
-					group = augroup,
-					callback = function()
-						M.next()
-					end,
-				})
+				if value == "ON_LOAD" then
+					-- Special event: load instantly
+					M.next(config.deck, true)
+				else
+					print("Event key: ", key)
+					vim.api.nvim_create_autocmd(value, {
+						group = augroup,
+						callback = function()
+							M.next()
+						end,
+					})
+				end
 			elseif type(key) == "string" then
 				vim.api.nvim_create_autocmd(key, {
 					pattern = value,

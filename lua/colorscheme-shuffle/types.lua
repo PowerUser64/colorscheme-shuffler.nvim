@@ -2,8 +2,10 @@
 ---@field deck string[]|nil
 ---@field blacklist table this is stored as { ['scheme'] = true } internally
 ---@field shuffle_events table
+---@field notify boolean
 --
 ---@class ColorschemeShuffle.UserConfig
 ---@field deck? string[]
 ---@field blacklist? string[]
 ---@field shuffle_events? table
+---@field notify boolean?

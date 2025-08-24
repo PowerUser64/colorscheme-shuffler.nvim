@@ -23,6 +23,7 @@ end
 
 -- Shuffle a list
 function M.shuffle_inplace(x)
+	math.randomseed(os.time())
 	-- credit: Fisher-Yates https://www.programming-idioms.org/idiom/10/shuffle-a-list/2019/lua
 	for i = #x, 2, -1 do
 		local j = math.random(i)

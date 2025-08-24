@@ -18,6 +18,7 @@ opts = {
     deck = nil,          -- colorschemes to pick from (default: all)
     blacklist = {},      -- any colorschemes that shouldn't be picked (default: none)
     shuffle_events = {}, -- which vim events to shuffle on? (use UIEnter for startup)
+    notify = true,       -- print the name of the colorscheme upon switching
 }
 ```
 
@@ -40,6 +41,7 @@ opts = {
         'UIEnter', -- shuffle on startup (make sure to not lazy load for this)
         FileType = { 'javascript' }, -- shuffle when entering javascript files
     },
+    notify = true,
 }
 ```
 
