@@ -44,6 +44,14 @@ A (non-default) example of how you could configure this plugin:
 }
 ```
 
+Note the special `ON_LOAD` event. Using this event will cause
+colorscheme-shuffle.nvim to shuffle the colorscheme while it is calling its
+setup function. This can replace setting a colorscheme with
+`vim.cmd.colorscheme()`. Also, the `notify` option does not apply here, and the
+command will always be run silently. This is because it prevents issues with
+things like custom notification systems (like noice.nvim) not being ready yet.
+Please file an issue if you would like a config option to change this.
+
 ## API
 
 - `next()` - Call this function to change to the next random colorscheme. Pass a list of colorschemes to pick from a specific list.
