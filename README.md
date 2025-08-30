@@ -13,9 +13,9 @@ Tests not passing? Feeling spontaneous? Mix up your editor theme with colorschem
 
 ```lua
 {
-    deck = nil,          -- colorschemes to pick from (default: all)
+    deck = nil,          -- deck of colorschemes to pick from (default: all installed)
     blacklist = {},      -- any colorschemes that shouldn't be picked (default: none)
-    shuffle_events = {}, -- which vim events to shuffle on? (use UIEnter for startup)
+    shuffle_events = {}, -- which vim events to shuffle on?
     notify = true,       -- print the name of the colorscheme upon switching
 }
 ```
@@ -28,7 +28,7 @@ A (non-default) example of how you could configure this plugin:
 {
     deck = nil, -- use all colorschemes
     blacklist = {
-        -- blacklist all default light themes
+        -- blacklist all builtin light themes
         "delek",
         "morning",
         "peachpuff",
@@ -55,8 +55,9 @@ Please file an issue if you would like a config option to change this.
 ## API
 
 - `next()` - Call this function to change to the next random colorscheme. Pass a list of colorschemes to pick from a specific list.
-- `append_blacklist()` - Add a new colorscheme to the blacklist. Useful if you want to split up your config.
+- `append_blacklist()` - Add a new colorscheme to the blacklist and apply the blacklist. Useful if you want to split up your config.
 - `append_deck()` - Add a new colorscheme to the list of all colorschemes, applying the blacklist filters. Useful if you want to split up your config.
+- `print_colorscheme` - Print the current colorscheme with vim.notify, in the same way that `config.notify = true` will.
 
 ## Acknowledgments
 
