@@ -1,0 +1,1 @@
+require("colorscheme-shuffler").setup()
