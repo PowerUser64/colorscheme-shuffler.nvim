@@ -57,7 +57,7 @@ Please file an issue if you would like a config option to change this.
 - `next()` - Call this function to change to the next random colorscheme. Pass a list of colorschemes to pick from a specific list.
 - `append_blacklist()` - Add a new colorscheme to the blacklist and apply the blacklist. Useful if you want to split up your config.
 - `append_deck()` - Add a new colorscheme to the list of all colorschemes, applying the blacklist filters. Useful if you want to split up your config.
-- `print_colorscheme` - Print the current colorscheme with vim.notify, in the same way that `config.notify = true` will.
+- `print_colorscheme()` - Print the current colorscheme with vim.notify, in the same way that `config.notify = true` will.
 
 ## Acknowledgments
 
