@@ -27,7 +27,7 @@ local idx = 0
 
 --- Print the current colorscheme through vim.notify
 function M.print_colorscheme()
-	vim.notify("colorscheme: " .. (vim.cmd.colorscheme() or ""), vim.log.levels.INFO, {})
+	vim.notify("colorscheme: " .. (lib.get_current_colorscheme_name() or ""), vim.log.levels.INFO, {})
 end
 
 --- Go to the next random colorscheme in the deck
@@ -37,7 +37,7 @@ function M.next(deck, notify)
 	deck = deck or config.deck
 	notify = (notify == nil and config.notify) or notify
 	-- get current colorscheme
-	local old_cs = vim.api.nvim_exec2("colorscheme", { output = true }).output
+	local old_cs = lib.get_current_colorscheme_name()
 	local new_cs = old_cs
 	if #deck == 0 then
 		vim.notify("colorscheme-shuffler.nvim: attempted shuffle with deck size zero", vim.log.levels.WARN, {})
@@ -81,8 +81,9 @@ function M.next(deck, notify)
 end
 
 --- Setup the plugin, optionally performing the shuffle_events option
----@param user_config ColorschemeShuffler.UserConfig
+---@param user_config ColorschemeShuffler.UserConfig?
 function M.setup(user_config)
+	user_config = user_config or {}
 	config = vim.tbl_deep_extend("force", config, user_config)
 
 	-- default to all colorschemes

@@ -14,13 +14,18 @@ function M.remove_blacklisted_colorschemes(colorschemes, blacklist)
 	return ret
 end
 
--- Get all colorschemes
+--- Print current colorscheme name
+function M.get_current_colorscheme_name()
+	return vim.api.nvim_exec2("colorscheme", { output = true }).output
+end
+
+--- Get all colorschemes
 function M.get_available_colorschemes()
 	local ret = vim.fn.getcompletion("", "color")
 	return ret
 end
 
--- Shuffle a list
+--- Shuffle a list
 function M.shuffle_inplace(x)
 	math.randomseed(os.time())
 	-- credit: Fisher-Yates https://www.programming-idioms.org/idiom/10/shuffle-a-list/2019/lua
@@ -30,7 +35,7 @@ function M.shuffle_inplace(x)
 	end
 end
 
--- take an array and transform the values into keys that are assigned to 'true'
+--- Take an array and transform the values into keys that are assigned to 'true'
 function M.list_values_to_keys(t)
 	local ret = {}
 	for _, value in ipairs(t) do
