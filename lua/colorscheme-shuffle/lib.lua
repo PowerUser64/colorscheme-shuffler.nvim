@@ -31,7 +31,7 @@ function M.shuffle_inplace(x)
 	end
 end
 
--- take a table and in
+-- take an array and transform the values into keys that are assigned to 'true'
 function M.list_values_to_keys(t)
 	local ret = {}
 	for _, value in ipairs(t) do

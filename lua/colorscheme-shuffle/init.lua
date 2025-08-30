@@ -25,6 +25,11 @@ end
 -- Index in the list that we read from, increments each time we go to the "next" colorscheme
 local idx = 0
 
+--- Print the current colorscheme through vim.notify
+function M.print_current()
+	vim.notify("colorscheme: " .. (vim.cmd.colorscheme() or ""), vim.log.levels.INFO, {})
+end
+
 --- Go to the next random colorscheme in the deck
 ---@param deck (string[]|nil)?
 ---@param notify boolean?
@@ -71,7 +76,7 @@ function M.next(deck, notify)
 	-- set the new colorscheme
 	vim.cmd.colorscheme(new_cs)
 	if notify then
-		vim.notify("colorscheme: " .. (new_cs or ""), vim.log.levels.INFO, {})
+		M.print_colorscheme()
 	end
 end
 
