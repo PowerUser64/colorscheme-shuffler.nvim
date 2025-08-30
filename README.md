@@ -1,10 +1,10 @@
-# colorscheme-shuffle.nvim
+# colorscheme-shuffler.nvim
 
-Tests not passing? Feeling spontaneous? Mix up your editor theme with colorscheme-shuffle.nvim!
+Tests not passing? Feeling spontaneous? Mix up your editor theme with colorscheme-shuffler.nvim!
 
 ```lua
 {
-    'PowerUser64/colorscheme-shuffle.nvim'
+    'PowerUser64/colorscheme-shuffler.nvim'
     opts = {},
 }
 ```
@@ -45,7 +45,7 @@ A (non-default) example of how you could configure this plugin:
 ```
 
 Note the special `ON_LOAD` event. Using this event will cause
-colorscheme-shuffle.nvim to shuffle the colorscheme while it is calling its
+colorscheme-shuffler.nvim to shuffle the colorscheme while it is calling its
 setup function. This can replace setting a colorscheme with
 `vim.cmd.colorscheme()`. Also, the `notify` option does not apply here, and the
 command will always be run silently. This is because it prevents issues with

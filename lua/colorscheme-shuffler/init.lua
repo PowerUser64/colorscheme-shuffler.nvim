@@ -1,6 +1,6 @@
 local M = {}
 
----@type ColorschemeShuffle.Config
+---@type ColorschemeShuffler.Config
 local config = {
 	deck = nil,
 	blacklist = {},
@@ -8,7 +8,7 @@ local config = {
 	notify = true,
 }
 
-local lib = require("colorscheme-shuffle.lib")
+local lib = require("colorscheme-shuffler.lib")
 
 -- Register a colorscheme for the picker
 function M.append_deck(cs)
@@ -26,7 +26,7 @@ end
 local idx = 0
 
 --- Print the current colorscheme through vim.notify
-function M.print_current()
+function M.print_colorscheme()
 	vim.notify("colorscheme: " .. (vim.cmd.colorscheme() or ""), vim.log.levels.INFO, {})
 end
 
@@ -40,7 +40,7 @@ function M.next(deck, notify)
 	local old_cs = vim.api.nvim_exec2("colorscheme", { output = true }).output
 	local new_cs = old_cs
 	if #deck == 0 then
-		vim.notify("colorscheme-shuffle.nvim: attempted shuffle with deck size zero", vim.log.levels.WARN, {})
+		vim.notify("colorscheme-shuffler.nvim: attempted shuffle with deck size zero", vim.log.levels.WARN, {})
 		return
 	end
 	-- track iterations
@@ -60,7 +60,7 @@ function M.next(deck, notify)
 		-- Guard against infinite loops
 		if i == #deck then
 			vim.notify(
-				"colorscheme-shuffle.nvim: Couldn't find a different colorscheme to switch to after "
+				"colorscheme-shuffler.nvim: Couldn't find a different colorscheme to switch to after "
 					.. tostring(i)
 					.. " iterations (deck size: "
 					.. tostring(#deck)
@@ -81,7 +81,7 @@ function M.next(deck, notify)
 end
 
 --- Setup the plugin, optionally performing the shuffle_events option
----@param user_config ColorschemeShuffle.UserConfig
+---@param user_config ColorschemeShuffler.UserConfig
 function M.setup(user_config)
 	config = vim.tbl_deep_extend("force", config, user_config)
 
@@ -94,7 +94,7 @@ function M.setup(user_config)
 	config.deck = lib.remove_blacklisted_colorschemes(config.deck, config.blacklist)
 
 	if config.shuffle_events then
-		local augroup = vim.api.nvim_create_augroup("colorscheme-shuffle.nvim", {})
+		local augroup = vim.api.nvim_create_augroup("colorscheme-shuffler.nvim", {})
 		for key, value in pairs(config.shuffle_events) do
 			if type(key) == "number" then
 				if value == "ON_LOAD" then

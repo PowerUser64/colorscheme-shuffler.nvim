@@ -17,7 +17,6 @@ end
 -- Get all colorschemes
 function M.get_available_colorschemes()
 	local ret = vim.fn.getcompletion("", "color")
-	-- ret = list_values_to_keys(ret)
 	return ret
 end
 
