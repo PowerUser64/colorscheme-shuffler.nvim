@@ -3,7 +3,7 @@ local M = {}
 ---@type ColorschemeShuffler.Config
 local config = {
 	deck = nil,
-	use_env_var = false,
+	use_env_var = true,
 	blacklist = {},
 	shuffle_events = {},
 	notify = true,
