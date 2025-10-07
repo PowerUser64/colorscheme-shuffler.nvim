@@ -3,6 +3,7 @@ local M = {}
 ---@type ColorschemeShuffler.Config
 local config = {
 	deck = nil,
+	use_env_var = false,
 	blacklist = {},
 	shuffle_events = {},
 	notify = true,
@@ -75,6 +76,9 @@ function M.next(deck, notify)
 	end
 	-- set the new colorscheme
 	vim.cmd.colorscheme(new_cs)
+	if config.use_env_var then
+		vim.env.NVIM_INIT_THEME = new_cs
+	end
 	if notify then
 		M.print_colorscheme()
 	end
@@ -99,8 +103,14 @@ function M.setup(user_config)
 		for key, value in pairs(config.shuffle_events) do
 			if type(key) == "number" then
 				if value == "ON_LOAD" then
-					-- Special event: load instantly
-					M.next(config.deck, false)
+					if config.use_env_var then
+						if vim.env.NVIM_INIT_THEME then
+							vim.cmd.colorscheme(vim.env.NVIM_INIT_THEME)
+						else
+							-- Special event: load instantly
+							M.next(config.deck, false)
+						end
+					end
 				else
 					print("Event key: ", key)
 					vim.api.nvim_create_autocmd(value, {

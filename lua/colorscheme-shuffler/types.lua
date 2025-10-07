@@ -1,9 +1,13 @@
 ---@class ColorschemeShuffler.Config
+---@field deck table|nil
 ---@field blacklist table this is stored as { ['scheme'] = true } internally
+---@field use_env_var boolean
 ---@field shuffle_events table
 ---@field notify boolean
 --
 ---@class ColorschemeShuffler.UserConfig
----@field blacklist? string[]
----@field shuffle_events? table
+---@field deck string[]?
+---@field blacklist string[]?
+---@field shuffle_events table?
 ---@field notify boolean?
+---@field use_env_var boolean?

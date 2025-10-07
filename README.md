@@ -14,6 +14,7 @@ Tests not passing? Feeling spontaneous? Mix up your editor theme with colorschem
 ```lua
 {
     deck = nil,          -- deck of colorschemes to pick from (default: all installed)
+    use_env_var = false, -- on startup, default to the theme stored in the NVIM_INIT_THEME env variable. Also, set this variable when changing themes.
     blacklist = {},      -- any colorschemes that shouldn't be picked (default: none)
     shuffle_events = {}, -- which vim events to shuffle on?
     notify = true,       -- print the name of the colorscheme upon switching
@@ -27,6 +28,7 @@ A (non-default) example of how you could configure this plugin:
 ```lua
 {
     deck = nil, -- use all colorschemes
+    use_env_var = true, -- make running nvim in the builtin terminal respect your colorscheme
     blacklist = {
         -- blacklist all builtin light themes
         "delek",
