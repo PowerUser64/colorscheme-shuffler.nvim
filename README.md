@@ -28,7 +28,7 @@ A (non-default) example of how you could configure this plugin:
 ```lua
 {
     deck = nil, -- use all colorschemes
-    use_env_var = true, -- make running nvim in the builtin terminal respect your colorscheme
+    use_env_var = true, -- make running nvim inside nvim respect your colorscheme
     blacklist = {
         -- blacklist all builtin light themes
         "delek",
