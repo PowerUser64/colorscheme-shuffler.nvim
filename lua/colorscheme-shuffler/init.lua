@@ -77,7 +77,7 @@ function M.next(deck, notify)
 	-- set the new colorscheme
 	vim.cmd.colorscheme(new_cs)
 	if config.use_env_var then
-		vim.env.NVIM_INIT_THEME = new_cs
+		vim.env.NVIM_THEME = new_cs
 	end
 	if notify then
 		M.print_colorscheme()
@@ -104,8 +104,8 @@ function M.setup(user_config)
 			if type(key) == "number" then
 				if value == "ON_LOAD" then
 					if config.use_env_var then
-						if vim.env.NVIM_INIT_THEME then
-							vim.cmd.colorscheme(vim.env.NVIM_INIT_THEME)
+						if vim.env.NVIM_THEME then
+							vim.cmd.colorscheme(vim.env.NVIM_THEME)
 						else
 							-- Special event: load instantly
 							M.next(config.deck, false)
